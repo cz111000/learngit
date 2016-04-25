@@ -187,136 +187,134 @@ void bubbleSortPlus(T arr[],int n);
 
 int main(int argc, char * argv[])
 {
-	clock_t start,end;
+    clock_t start,end;
     int a[N];
-	int b[N];
-	int c[N];
-	int d[N];
-	srand(time(NULL));
-	for(int i = 0;i < N;i++)
-	{
-		a[i] = rand()%100 + rand()%1000;
-		d[i] = c[i] = b[i] = a[i];
-	}
-
+    int b[N];
+    int c[N];
+    int d[N];
+    srand(time(NULL));
+    for(int i = 0;i < N;i++)
+    {
+        //d[i] = c[i] = b[i] = a[i] = rand()%100 + rand()%1000;
+		d[i] = c[i] = b[i] = a[i] = N - i;
+    }
+	
     int* temp = (int*)malloc(sizeof(int) * N);
-	start = clock();
-	mergeSort(a,temp,0,N - 1);
-	end = clock();
-	printf("归并排序用时%lfsec\n",(double)(end - start) / CLOCKS_PER_SEC);
-	//printArr(a,N);
-	free(temp);
-
-	start = clock();
-	insertSort(b,N);
-	end = clock();
-	printf("插入排序用时%lfsec\n",(double)(end - start) / CLOCKS_PER_SEC);
-	//printArr(b,N);
-
-	start = clock();
-	bubbleSort(c,N);
-	end = clock();
-	printf("冒泡排序用时%lfsec\n",(double)(end - start) / CLOCKS_PER_SEC);
-	//printArr(c,N);
-
-	start = clock();
-	bubbleSortPlus(d,N);
-	end = clock();
-	printf("升级版冒泡排序用时%lfsec\n",(double)(end - start) / CLOCKS_PER_SEC);
-	//printArr(c,N);
-
+    start = clock();
+    mergeSort(a,temp,0,N - 1);
+    end = clock();
+    printf("归并排序用时%lfsec\n",(double)(end - start) / CLOCKS_PER_SEC);
+    //printArr(a,N);
+    free(temp);
+	
+    start = clock();
+    insertSort(b,N);
+    end = clock();
+    printf("插入排序用时%lfsec\n",(double)(end - start) / CLOCKS_PER_SEC);
+    //printArr(b,N);
+	
+    start = clock();
+    bubbleSort(c,N);
+    end = clock();
+    printf("冒泡排序用时%lfsec\n",(double)(end - start) / CLOCKS_PER_SEC);
+    //printArr(c,N);
+	
+    start = clock();
+    bubbleSortPlus(d,N);
+    end = clock();
+    printf("升级版冒泡排序用时%lfsec\n",(double)(end - start) / CLOCKS_PER_SEC);
+    //printArr(d,N);
+	
     return 0;
 }
 
 template<typename T>
 void arrUnion(T arr[],T temp[],int start,int mid,int last)
 {
-	int i,j,k;
-	i = start;
-	j = mid + 1;
-	k = start;
-	while(i != mid + 1 && j != last + 1)
-	{
-		if(arr[i] < arr[j])
-			temp[k++] = arr[i++];
-		else
-			temp[k++] = arr[j++];
-	}
-	while(i != mid + 1)
-		temp[k++] = arr[i++];
-	while(j != last + 1)
-		temp[k++] = arr[j++];
-	for(i = start;i < last + 1;i++)
-		arr[i] = temp[i];
+    int i,j,k;
+    i = start;
+    j = mid + 1;
+    k = start;
+    while(i != mid + 1 && j != last + 1)
+    {
+        if(arr[i] < arr[j])
+            temp[k++] = arr[i++];
+        else
+            temp[k++] = arr[j++];
+    }
+    while(i != mid + 1)
+        temp[k++] = arr[i++];
+    while(j != last + 1)
+        temp[k++] = arr[j++];
+    for(i = start;i < last + 1;i++)
+        arr[i] = temp[i];
 }
 
 template<typename T>
 void mergeSort(T arr[],T temp[],int start,int last)
 {
-	if(start < last)
-	{
-		int mid = (start + last) / 2;
-		mergeSort(arr,temp,start,mid);
-		mergeSort(arr,temp,mid + 1,last);
-		arrUnion(arr,temp,start,mid,last);
-	}	
+    if(start < last)
+    {
+        int mid = (start + last) / 2;
+        mergeSort(arr,temp,start,mid);
+        mergeSort(arr,temp,mid + 1,last);
+        arrUnion(arr,temp,start,mid,last);
+    }   
 }
 
 template<typename T>
 void insertSort(T arr[],int n)
 {
-	T temp;
-	for(int i = 1;i < n;i++)
-		if(arr[i] < arr[i - 1])
-		{
-			temp = arr[i];
-			for(int j = i - 1;j >= 0 && arr[j] > temp;j--)
-				arr[j + 1] = arr[j];
-			arr[j + 1] = temp;
-		}
+    T temp;
+    for(int i = 1;i < n;i++)
+        if(arr[i] < arr[i - 1])
+        {
+            temp = arr[i];
+            for(int j = i - 1;j >= 0 && arr[j] > temp;j--)
+                arr[j + 1] = arr[j];
+            arr[j + 1] = temp;
+        }
 }
 
 template<typename T>
 void bubbleSort(T arr[],int n)
 {
-	T temp;
-	for(int i = 0;i < n - 1;i++)
-		for(int j = 0;j < n - 1 - i;j++)
-			if(arr[j] > arr[j + 1])
-			{
-				temp = arr[j];
-				arr[j] = arr[j + 1];
-				arr[j + 1] = temp;
-			}
+    T temp;
+    for(int i = 0;i < n - 1;i++)
+        for(int j = 0;j < n - 1 - i;j++)
+            if(arr[j] > arr[j + 1])
+            {
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
 }
 
 template<typename T>
 void bubbleSortPlus(T arr[],int n)
 {
-	bool flag = false;
-	T temp;
-	for(int i = 0;i < n - 1;i++)
-	{
-		flag = false;
-		for(int j = 0;j < n - 1 - i;j++)
-			if(arr[j] > arr[j + 1])
-			{
-				flag = true;
-				temp = arr[j];
-				arr[j] = arr[j + 1];
-				arr[j + 1] = temp;
-			}
-		if(flag == false)
-			break;
-	}
+    bool flag = true;
+    T temp;
+    for(int i = 0;i < n - 1 && flag;i++)
+    {
+        flag = false;
+        for(int j = 0;j < n - 1 - i;j++)
+            if(arr[j] > arr[j + 1])
+            {
+                flag = true;
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+    }
 }
 
 template<typename T>
 void printArr(T arr[],int n)
 {
-	for(int i = 0;i < n;i++)
-		printf("%d ", arr[i]);
-	printf("\n");
+    for(int i = 0;i < n;i++)
+        printf("%d ", arr[i]);
+    printf("\n");
 }
 ```
 执行条件：
@@ -327,13 +325,172 @@ void printArr(T arr[],int n)
 
 执行结果：
 
-**归并排序用时0.002000sec**
+**归并排序用时0.001000sec**
 
-**插入排序用时0.023000sec**
+**插入排序用时0.043000sec**
 
-**冒泡排序用时0.077000sec**
+**冒泡排序用时0.079000sec**
 
-**升级版冒泡排序用时0.071000sec**
+**升级版冒泡排序用时0.066000sec**
+
+下面我们通过这段JAVA语言代码比较排序速度，直观感受时间复杂度。
+```JAVA
+//Test.java
+package pers.cz.sortcompare;
+
+import java.util.Random;
+import pers.cz.sortcompare.Sort;
+
+public class Test {
+
+    public static void main(String[] args) {
+        final int n = 1000;
+        int[] a = new int[n];
+        int[] b = new int[n];
+        int[] c = new int[n];
+        int[] d = new int[n];
+        long start, end;
+        Random rand = new Random();
+        for (int i = 0; i < a.length; i++) {
+            d[i] = c[i] = b[i] = a[i] = rand.nextInt();
+        }
+
+        start = System.currentTimeMillis();
+        int[] temp = new int[n];
+        Sort.MargeSort(a, 0, n - 1, temp);
+        temp = null;
+        end = System.currentTimeMillis();
+        System.out.print("MargeSort cost time(sec):");
+        System.out.println(end - start);
+        //PrintArrData(a);
+
+        start = System.currentTimeMillis();
+        Sort.InsertSort(b);
+        end = System.currentTimeMillis();
+        System.out.print("InstertSort cost time(sec):");
+        System.out.println(end - start);
+        //PrintArrData(b);
+
+        start = System.currentTimeMillis();
+        Sort.BubbleSortPlus(c);
+        end = System.currentTimeMillis();
+        System.out.print("BubbleSortPlus cost time(sec):");
+        System.out.println(end - start);
+        //PrintArrData(c);
+
+        start = System.currentTimeMillis();
+        Sort.BubbleSort(d);
+        end = System.currentTimeMillis();
+        System.out.print("BubbleSort cost time(sec):");
+        System.out.println(end - start);
+        //PrintArrData(d);
+
+    }
+
+    static void PrintArrData(int[] arr) {
+        for (int value : arr) {
+            System.out.println(value);
+        }
+        System.out.println();
+    }
+}
+```
+```JAVA
+//Sort.java
+package pers.cz.sortcompare;
+
+public class Sort {
+
+    public static void BubbleSort(int[] arr) {
+        int temp;
+        for (int i = 0; i < arr.length - 1; i++) {
+            for (int j = 0; j < arr.length - 1 - i; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+    public static void BubbleSortPlus(int[] arr) {
+        int temp;
+        boolean flag = true;
+        for (int i = 0; i < arr.length - 1 && flag; i++) {
+            flag = false;
+            for (int j = 0; j < arr.length - 1 - i; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    flag = true;
+                    temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+    public static void InsertSort(int[] arr) {
+        int j, number;
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] < arr[i - 1]) {
+                number = arr[i];
+                for (j = i - 1; j >= 0 && arr[j] > number; j--) {
+                    arr[j + 1] = arr[j];
+                }
+                arr[j + 1] = number;
+            }
+        }
+    }
+
+    public static void MargeSort(int[] arr, int start, int last, int[] temp) {
+        if (start < last) {
+            int mid = (start + last) / 2;
+            Sort.MargeSort(arr, start, mid, temp);
+            Sort.MargeSort(arr, mid + 1, last, temp);
+            ArrUnion(arr, temp, start, mid, last);
+        }
+    }
+
+    private static void ArrUnion(int[] arr, int[] temp, int start, int mid, int last) {
+        int i, j, k;
+        i = start;
+        j = mid + 1;
+        k = start;
+        while (i != mid + 1 && j != last + 1) {
+            if (arr[i] < arr[j]) {
+                temp[k++] = arr[i++];
+            } else {
+                temp[k++] = arr[j++];
+            }
+        }
+        while (i != mid + 1) {
+            temp[k++] = arr[i++];
+        }
+        while (j != last + 1) {
+            temp[k++] = arr[j++];
+        }
+        for (i = start; i < last + 1; i++) {
+            arr[i] = temp[i];
+        }
+    }
+}
+```
+执行条件：
+
+**编译程序NetBean**
+
+**数组成员 1000**
+
+执行结果：
+
+**MargeSort cost time(sec):1**
+
+**InstertSort cost time(sec):3**
+
+**BubbleSortPlus cost time(sec):9**
+
+**BubbleSort cost time(sec):7**
 
 [^A]: 递推法即是把一个复杂的庞大的计算过程转化为简单过程的多次重复
 
