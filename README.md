@@ -478,7 +478,7 @@ public class Sort {
 ```
 执行条件：
 
-**编译程序NetBean**
+**编译程序NetBeans IDE 8.1**
 
 **数组成员 1000**
 
