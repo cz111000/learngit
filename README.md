@@ -635,7 +635,7 @@ public class Sort {
             int i = start;
             int j = last;
             Random rand = new Random();
-            int pos = rand.nextInt(last);
+            int pos = rand.nextInt(last - start) + start;
             temp = arr[start];
             arr[start] = arr[pos];
             arr[pos] = temp;
