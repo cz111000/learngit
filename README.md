@@ -667,7 +667,7 @@ public class Sort {
 
 执行结果：
 
-**QuickSort cost time(sec):1*
+**QuickSort cost time(sec):1**
 
 **QuickSortRand cost time(sec):0**
 
